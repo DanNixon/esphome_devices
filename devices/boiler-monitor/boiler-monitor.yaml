@@ -1,0 +1,44 @@
+---
+esphome:
+  name: boiler-monitor
+  build_path: build
+  platform: ESP8266
+  board: nodemcuv2
+
+packages:
+  base: !include ../../common/base.yaml
+  wifi: !include ../../common/wifi.yaml
+
+wifi:
+  ap:
+    ssid: "fix_me_boiler_monitor"
+
+dallas:
+  - pin: D2
+    update_interval: 10s
+
+binary_sensor:
+  - name: "Boiler Burner"
+    platform: template
+    lambda: |-
+      return id(boiler_burner_light_level).state > 0.55;
+
+sensor:
+  - name: "Boiler Burner Indicator Light Level"
+    id: boiler_burner_light_level
+    internal: true
+    platform: adc
+    pin: A0
+    update_interval: 2s
+
+  - name: "Hot Water Flow Temperature"
+    platform: dallas
+    address: 0xEB000F9843140528
+
+  - name: "Central Heating Flow Temperature"
+    platform: dallas
+    address: 0x4B00FF9843122B28
+
+  - name: "Central Heating Return Temperature"
+    platform: dallas
+    address: 0xFA00239843066D28

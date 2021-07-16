@@ -1,0 +1,55 @@
+---
+esphome:
+  name: flan-wings
+  build_path: build
+  platform: ESP8266
+  board: nodemcuv2
+
+packages:
+  base: !include ../../common/base.yaml
+  wifi: !include ../../common/wifi.yaml
+
+wifi:
+  ap:
+    ssid: "fix_me_flandre_wings"
+
+light:
+  - platform: fastled_clockless
+    name: "Flandre Wings"
+    chipset: WS2811
+    pin: D1
+    num_leds: 14
+    rgb_order: GRB
+    effects:
+      - random:
+      - flicker:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_scan:
+      - addressable_twinkle:
+      - addressable_random_twinkle:
+      - addressable_fireworks:
+      - addressable_flicker:
+      - addressable_lambda:
+          name: "Flandre Wings"
+          lambda: |-
+            it[0] = light::ESPColor(64, 176, 255);
+            it[7] = light::ESPColor(64, 176, 255);
+
+            it[1] = light::ESPColor(0, 0, 255);
+            it[8] = light::ESPColor(0, 0, 255);
+
+            it[2] = light::ESPColor(100, 16, 180);
+            it[9] = light::ESPColor(100, 16, 180);
+
+            it[3] = light::ESPColor(255, 64, 64);
+            it[10] = light::ESPColor(255, 64, 64);
+
+            it[4] = light::ESPColor(255, 100, 0);
+            it[11] = light::ESPColor(255, 100, 0);
+
+            it[5] = light::ESPColor(255, 255, 24);
+            it[12] = light::ESPColor(255, 255, 24);
+
+            it[6] = light::ESPColor(50, 255, 50);
+            it[13] = light::ESPColor(50, 255, 50);

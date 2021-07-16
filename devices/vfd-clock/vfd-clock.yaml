@@ -1,0 +1,92 @@
+---
+esphome:
+  name: vfd-clock
+  build_path: build
+  platform: ESP8266
+  board: d1_mini
+  includes:
+    - vfd_display.hpp
+  on_boot:
+    priority: -10
+    then:
+      - light.turn_on: vfd_enable
+
+packages:
+  base: !include ../../common/base.yaml
+  wifi: !include ../../common/wifi.yaml
+
+wifi:
+  ap:
+    ssid: "fix_me_vfd_clock"
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D0
+      inverted: True
+    name: "VFD Clock Button 1"
+
+  - platform: gpio
+    pin:
+      number: D5
+      inverted: True
+    name: "VFD Clock Button 2"
+
+  - platform: gpio
+    pin:
+      number: 3
+      inverted: True
+    name: "VFD Clock Button 3"
+
+  - platform: gpio
+    pin:
+      number: 1
+      inverted: True
+    name: "VFD Clock Button 4"
+
+custom_component:
+  - lambda: |-
+      auto vfd_display = new VfdRegisterOutput();
+      App.register_component(vfd_display);
+      return {vfd_display};
+
+light:
+  - platform: monochromatic
+    output: vdf_pwm
+    name: "VFD Clock Tube Enable"
+    id: vfd_enable
+
+  - platform: fastled_clockless
+    name: "VFD Clock Tube Illumination"
+    chipset: WS2811
+    pin: D6
+    num_leds: 8
+    rgb_order: RGB
+    effects:
+      - random:
+      - flicker:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_scan:
+          move_interval: 125ms
+      - addressable_twinkle:
+      - addressable_random_twinkle:
+      - addressable_fireworks:
+      - addressable_flicker:
+
+output:
+  - platform: esp8266_pwm
+    pin: D7
+    inverted: True
+    id: vdf_pwm
+
+sensor:
+  - platform: adc
+    pin: A0
+    name: "VFD Clock Ambient Brightness"
+    icon: "mdi:home-lightbulb-outline"
+    update_interval: 30s
+
+time:
+  - platform: homeassistant
+    id: device_time

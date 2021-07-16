@@ -1,0 +1,52 @@
+---
+substitutions:
+  room_id: test
+  room_name: Test
+
+esphome:
+  name: "room-sensor-${room_id}"
+  build_path: "build/${room_id}"
+  platform: ESP8266
+  board: d1_mini
+
+packages:
+  base: !include ../../common/base.yaml
+  wifi: !include ../../common/wifi.yaml
+
+wifi:
+  ap:
+    ssid: "fix_me_${room_id}"
+
+i2c:
+  # sda: D2
+  # scl: D1
+
+binary_sensor:
+  - platform: gpio
+    pin: D0
+    name: "${room_name} Motion"
+    device_class: motion
+    filters:
+      - delayed_off: 15s
+
+sensor:
+  - platform: adc
+    pin: A0
+    name: "${room_name} Ambient Brightness"
+    device_class: illuminance
+    unit_of_measurement: "%"
+    update_interval: 60s
+    accuracy_decimals: 0
+    filters:
+      - multiply: 100
+
+  - platform: aht10
+    temperature:
+      name: "${room_name} Temperature"
+      accuracy_decimals: 1
+      filters:
+        - offset: -4.0
+    humidity:
+      name: "${room_name} Humidity"
+      accuracy_decimals: 1
+    update_interval: 60s

@@ -1,0 +1,36 @@
+---
+name: "Build"
+
+on:
+  push:
+    branches:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        device:
+          - boiler-monitor/boiler-monitor.yaml
+          - flan-wings/flan-wings.yaml
+          - hakkero/hakkero.yaml
+          - room-sensor/room-sensor.yaml
+          - vfd-clock/vfd-clock.yaml
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+
+      - name: Install ESPHome
+        run: pip install esphome
+
+      - name: Copy dummy secrets file
+        run: cp common/secrets_empty.yaml common/secrets.yaml
+
+      - name: Build
+        run: esphome compile devices/${{ matrix.device }}

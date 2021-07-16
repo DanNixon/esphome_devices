@@ -1,0 +1,5 @@
+.esphome/
+build/
+*.pio*/
+
+common/secrets.yaml

@@ -30,6 +30,10 @@ binary_sensor:
       - delayed_off: 15s
 
 sensor:
+  - platform: wifi_signal
+    name: "${room_name} WiFi Signal Strength"
+    update_interval: 60s
+
   - platform: adc
     pin: A0
     name: "${room_name} Ambient Brightness"

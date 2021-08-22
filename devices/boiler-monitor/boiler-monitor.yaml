@@ -24,6 +24,10 @@ binary_sensor:
       return id(boiler_burner_light_level).state > 0.55;
 
 sensor:
+  - platform: wifi_signal
+    name: "Boiler Monitor WiFi Signal Strength"
+    update_interval: 60s
+
   - name: "Boiler Burner Indicator Light Level"
     id: boiler_burner_light_level
     internal: true

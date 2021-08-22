@@ -81,6 +81,10 @@ output:
     id: vdf_pwm
 
 sensor:
+  - platform: wifi_signal
+    name: "VFD Clock WiFi Signal Strength"
+    update_interval: 60s
+
   - platform: adc
     pin: A0
     name: "VFD Clock Ambient Brightness"

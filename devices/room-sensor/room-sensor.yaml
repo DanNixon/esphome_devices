@@ -47,10 +47,34 @@ sensor:
   - platform: aht10
     temperature:
       name: "${room_name} Temperature"
+      id: temperature
       accuracy_decimals: 1
       filters:
         - offset: -4.0
     humidity:
       name: "${room_name} Humidity"
+      id: humidity
       accuracy_decimals: 1
     update_interval: 60s
+
+  - platform: template
+    name: "${room_name} Heat Index"
+    unit_of_measurement: "°C"
+    lambda: |-
+      auto const t = id(temperature).state;
+      auto const t2 = t * t;
+
+      auto const h = id(humidity).state;
+      auto const h2 = h * h;
+
+      auto const c1 = -8.78469475556;
+      auto const c2 = 1.61139411;
+      auto const c3 = 2.33854883889;
+      auto const c4 = -0.14611605;
+      auto const c5 = -0.012308094;
+      auto const c6 = -0.0164248277778;
+      auto const c7 = 0.002211732;
+      auto const c8 = 0.00072546;
+      auto const c9 = -0.000003582;
+
+      return c1 + (c2 * t) + (c3 * h) + (c4 * t * h) + (c5 * t2) + (c6 * h2) + (c7 * t2 * h) + (c8 * t * h2) + (c9 * t2 * h2);

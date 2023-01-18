@@ -1,12 +1,8 @@
 ---
-name: "Build"
+name: Build
 
 on:
   push:
-    branches:
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
@@ -21,10 +17,10 @@ jobs:
           - vfd-clock/vfd-clock.yaml
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
 
       - name: Install ESPHome
         run: pip install esphome

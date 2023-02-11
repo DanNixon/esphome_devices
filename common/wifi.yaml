@@ -3,8 +3,3 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   domain: .iot.castle.dan-nixon.com
-
-  ap:
-    password: !secret captive_portal_password
-
-captive_portal:

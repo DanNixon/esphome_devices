@@ -5,4 +5,5 @@ ota:
   password: !secret ota_password
 
 api:
-  password: !secret ha_api_password
+  encryption:
+    key: !secret api_key

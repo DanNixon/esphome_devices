@@ -1,0 +1,68 @@
+esphome:
+  name: boiler
+
+esp32:
+  board: esp32-poe-iso
+  framework:
+    type: arduino
+
+packages:
+  base: !include ../common/base.yaml
+  ethernet: !include ../common/ethernet_olimex_esp32_poe.yaml
+
+dallas:
+  - id: dallas_internal
+    pin: 13
+
+  # - id: dallas_external
+  #   pin: D2
+  #   update_interval: 10s
+
+switch:
+  - name: Boiler Heating Demand
+    platform: gpio
+    pin:
+      number: 5
+
+binary_sensor:
+  - name: Boiler Hot Water Demand
+    platform: gpio
+    pin:
+      number: 35
+      mode:
+        input: true
+
+  - name: Boiler Heating Demand
+    platform: gpio
+    pin:
+      number: 36
+      mode:
+        input: true
+
+  - name: Boiler Flame Lit
+    platform: gpio
+    pin:
+      number: 39
+      mode:
+        input: true
+
+sensor:
+  - name: Boiler Smart Interface Electronics Temperature
+    platform: dallas
+    dallas_id: dallas_internal
+    address: 0xd63ce1e380a63428
+
+#   - name: "Hot Water Flow Temperature"
+#     platform: dallas
+#     dallas_id: dallas_external
+#     address: 0xEB000F9843140528
+
+#   - name: "Central Heating Flow Temperature"
+#     platform: dallas
+#     dallas_id: dallas_external
+#     address: 0x4B00FF9843122B28
+
+#   - name: "Central Heating Return Temperature"
+#     platform: dallas
+#     dallas_id: dallas_external
+#     address: 0xFA00239843066D28

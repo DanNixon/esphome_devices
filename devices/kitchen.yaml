@@ -1,0 +1,47 @@
+---
+esphome:
+  name: kitchen
+
+esp8266:
+  board: d1_mini
+
+packages:
+  base: !include ../common/base.yaml
+  wifi: !include ../common/wifi.yaml
+
+i2c:
+
+binary_sensor:
+  - platform: gpio
+    pin: D0
+    name: Kitchen Motion
+    device_class: motion
+    filters:
+      - delayed_off: 15s
+
+sensor:
+  - platform: wifi_signal
+    name: Kitchen WiFi Signal Strength
+    update_interval: 60s
+
+  - platform: adc
+    pin: A0
+    name: Kitchen Ambient Brightness
+    device_class: illuminance
+    unit_of_measurement: "%"
+    update_interval: 1s
+    accuracy_decimals: 0
+    filters:
+      - multiply: 100
+      - delta: 2%
+
+  - platform: aht10
+    temperature:
+      name: Kitchen Temperature
+      accuracy_decimals: 1
+      filters:
+        - offset: -4.0
+    humidity:
+      name: Kitchen Humidity
+      accuracy_decimals: 1
+    update_interval: 60s

@@ -1,0 +1,11 @@
+esphome:
+  name: board-1
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+packages:
+  base: !include ../common/base.yaml
+  ethernet: !include ../common/ethernet_ttgo_tinternet_poe.yaml

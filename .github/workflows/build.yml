@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         device:
-          - boiler-monitor/boiler-monitor.yaml
+          - boiler/boiler.yaml
           - flan-wings/flan-wings.yaml
           - hakkero/hakkero.yaml
           - room-sensor/room-sensor.yaml

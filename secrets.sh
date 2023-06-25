@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-  echo "$0 [new|load] [device.yaml]"
+  echo "$0 [new|load|dummy] [device.yaml]"
 }
 
 here="$(readlink -f "$0")"
@@ -26,10 +26,10 @@ print_details() {
 generate_empty_secrets() {
   echo "---
 # Secrets for $device_file
-ota_password: \"$(hsxkpasswd)\"
+ota_password: \"$(tr -dc A-Za-z0-9 </dev/urandom | head -c 64)\"
 api_key: \"$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32 | base64)\"
-wifi_ssid: \"\"
-wifi_password: \"\""
+wifi_ssid: \"TODO\"
+wifi_password: \"TODOTODO\""
 }
 
 case "$1" in
@@ -40,6 +40,10 @@ case "$1" in
   "load")
     print_details
     pass "$pass_entry" > "$secrets_file"
+    ;;
+  "dummy")
+    print_details
+    generate_empty_secrets > "$secrets_file"
     ;;
   *)
     usage

@@ -10,11 +10,17 @@ jobs:
     strategy:
       matrix:
         device:
-          - boiler/boiler.yaml
-          - flan-wings/flan-wings.yaml
-          - hakkero/hakkero.yaml
-          - room-sensor/room-sensor.yaml
-          - vfd-clock/vfd-clock.yaml
+          - board-1.yaml
+          - board-2.yaml
+          - board-3.yaml
+          - boiler.yaml
+          - guest-bedroom.yaml
+          - kitchen.yaml
+          - landing.yaml
+          - living-room.yaml
+          - main-bedroom.yaml
+          - office.yaml
+          - utility-room.yaml
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -25,8 +31,7 @@ jobs:
       - name: Install ESPHome
         run: pip install esphome
 
-      - name: Copy dummy secrets file
-        run: cp common/secrets_empty.yaml common/secrets.yaml
-
       - name: Build
-        run: esphome compile devices/${{ matrix.device }}
+        run: |
+          ./secrets.sh dummy devices/${{ matrix.device }}
+          esphome compile devices/${{ matrix.device }}

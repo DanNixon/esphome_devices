@@ -9,3 +9,22 @@ esp32:
 packages:
   base: !include ../common/base.yaml
   ethernet: !include ../common/ethernet_ttgo_tinternet_poe.yaml
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: 16
+      mode:
+        input: true
+        pullup: true
+    name: Front Door
+    device_class: door
+
+  - platform: gpio
+    pin:
+      number: 33
+      mode:
+        input: true
+        pullup: true
+    name: Front Door Tamper
+    device_class: tamper

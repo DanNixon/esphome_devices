@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         device:
@@ -21,17 +22,12 @@ jobs:
           - main-bedroom.yaml
           - office.yaml
           - utility-room.yaml
+
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-
-      - name: Install ESPHome
-        run: pip install esphome
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v20
 
       - name: Build
         run: |
           ./secrets.sh dummy devices/${{ matrix.device }}
-          esphome compile devices/${{ matrix.device }}
+          nix develop --command esphome compile devices/${{ matrix.device }}

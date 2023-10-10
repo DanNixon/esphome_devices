@@ -38,10 +38,17 @@ sensor:
   - platform: aht10
     temperature:
       name: Kitchen Temperature
+      id: temperature
       accuracy_decimals: 1
       filters:
         - offset: -4.0
     humidity:
       name: Kitchen Humidity
+      id: relative_humidity
       accuracy_decimals: 1
     update_interval: 60s
+
+  - platform: absolute_humidity
+    name: Kitchen Absolute Humidity
+    temperature: temperature
+    humidity: relative_humidity

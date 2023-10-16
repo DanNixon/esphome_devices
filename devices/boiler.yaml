@@ -2,67 +2,71 @@ esphome:
   name: boiler
 
 esp32:
-  board: esp32-poe-iso
+  board: esp32dev
   framework:
     type: arduino
 
 packages:
   base: !include ../common/base.yaml
-  ethernet: !include ../common/ethernet_olimex_esp32_poe.yaml
+  ethernet: !include ../common/ethernet_ttgo_tinternet_poe.yaml
+
+# spares 16, 32
 
 dallas:
-  - id: dallas_internal
-    pin: 13
-
-  # - id: dallas_external
-  #   pin: D2
-  #   update_interval: 10s
+  - pin: GPIO14
 
 switch:
   - name: Boiler Heating Demand
     platform: gpio
     pin:
-      number: 5
+      number: GPIO2
 
 binary_sensor:
   - name: Boiler Hot Water Demand
     platform: gpio
     pin:
-      number: 35
+      number: GPIO16
       mode:
         input: true
+      inverted: true
 
   - name: Boiler Heating Demand
     platform: gpio
     pin:
-      number: 36
+      number: GPIO36
       mode:
         input: true
+      inverted: true
 
   - name: Boiler Flame Lit
     platform: gpio
     pin:
-      number: 39
+      number: GPIO34
       mode:
         input: true
+      inverted: true
 
 sensor:
-  - name: Boiler Smart Interface Electronics Temperature
+#   - name: Boiler Smart Interface Electronics Temperature
+#     platform: dallas
+#     address: 0xd63ce1e380a63428
+#
+  - name: Boiler Closet Temperature
     platform: dallas
-    dallas_id: dallas_internal
-    address: 0xd63ce1e380a63428
+    address: 0x9e3ce1e3803b3a28
 
-#   - name: "Hot Water Flow Temperature"
-#     platform: dallas
-#     dallas_id: dallas_external
-#     address: 0xEB000F9843140528
+  - name: "Cold Water Inlet Temperature"
+    platform: dallas
+    address: 0x023c490457f76428
 
-#   - name: "Central Heating Flow Temperature"
-#     platform: dallas
-#     dallas_id: dallas_external
-#     address: 0x4B00FF9843122B28
+  - name: "Hot Water Flow Temperature"
+    platform: dallas
+    address: 0xeb000f9843140528
 
-#   - name: "Central Heating Return Temperature"
-#     platform: dallas
-#     dallas_id: dallas_external
-#     address: 0xFA00239843066D28
+  - name: "Central Heating Flow Temperature"
+    platform: dallas
+    address: 0x4b00ff9843122b28
+
+  - name: "Central Heating Return Temperature"
+    platform: dallas
+    address: 0xfa00239843066d28

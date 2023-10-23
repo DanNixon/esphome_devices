@@ -1,0 +1,8 @@
+---
+ethernet:
+  domain: .iot.castle.dan-nixon.com
+  type: RTL8201
+  mdc_pin: GPIO16
+  mdio_pin: GPIO17
+  clk_mode: GPIO0_IN
+  phy_addr: 0

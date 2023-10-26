@@ -1,6 +1,5 @@
----
 esphome:
-  name: board-3
+  name: doit-esp32-devkit-kitchen-sink
 
 esp32:
   board: esp32dev
@@ -9,10 +8,8 @@ esp32:
 
 packages:
   base: !include ../../esphome_common/base.yaml
-  ethernet: !include ../../esphome_common/ethernet_ttgo_tinternet_poe.yaml
-  breakout: !include ../../esphome_common/lilygo-t-internet-breakout.yaml
-
-# Modular sensor breakout testing
+  wifi: !include ../../esphome_common/wifi.yaml
+  breakout: !include ../../esphome_common/doit-esp32-devkit-breakout.yaml
 
 web_server:
   port: 80
@@ -26,6 +23,7 @@ sensor:
 
   - platform: bh1750
     name: "Ambient Light"
+    update_interval: 5s
 
   - platform: pmsx003
     uart_id: uart_1
@@ -44,12 +42,8 @@ sensor:
       name: "CO2"
 
   - platform: dallas
-    address: 0xc5573d5509646128
-    name: "Dallas Temperature 1"
-
-  - platform: dallas
-    address: 0x0f62445709646128
-    name: "Dallas Temperature 2"
+    address: 0xbf83d55709646128
+    name: "Dallas Temperature"
 
   - platform: aht10
     temperature:
@@ -61,6 +55,17 @@ light:
   - platform: neopixelbus
     type: BRG
     variant: WS2812
-    pin: GPIO2
+    pin: GPIO14
     num_leds: 24
     name: "NeoPixel Light"
+
+binary_sensor:
+  - platform: gpio
+    name: "SX1509 Pin #0"
+    pin:
+      sx1509: sx1509_hub1
+      number: 0
+      mode:
+        input: true
+        pullup: true
+      inverted: true

@@ -17,7 +17,7 @@ jobs:
           - board-2.yaml
           - board-3.yaml
           - board-4.yaml
-          - boiler.yaml
+          - boiler/boiler.yaml
           - guest-bedroom.yaml
           - kitchen.yaml
           - landing.yaml

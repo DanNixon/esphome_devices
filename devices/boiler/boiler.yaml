@@ -10,10 +10,9 @@ packages:
   base: !include ../../esphome_common/base.yaml
   ethernet: !include ../../esphome_common/ethernet_ttgo_tinternet_poe.yaml
 
-# spares 16, 32
-
 dallas:
   - pin: GPIO14
+    update_interval: 5s
 
 switch:
   - name: Boiler Heating Demand
@@ -33,7 +32,7 @@ binary_sensor:
   - name: Boiler Heating Demand
     platform: gpio
     pin:
-      number: GPIO36
+      number: GPIO33
       mode:
         input: true
       inverted: true
@@ -41,32 +40,36 @@ binary_sensor:
   - name: Boiler Flame Lit
     platform: gpio
     pin:
-      number: GPIO34
+      number: GPIO32
       mode:
         input: true
       inverted: true
 
 sensor:
-#   - name: Boiler Smart Interface Electronics Temperature
-#     platform: dallas
-#     address: 0xd63ce1e380a63428
-#
+  - name: Boiler Smart Interface Ambient Temperature
+    platform: dallas
+    address: 0xc2b0305609646128
+
+  - name: Boiler Smart Interface Expansion Board Temperature
+    platform: dallas
+    address: 0x7b29365209646128
+
   - name: Boiler Closet Temperature
     platform: dallas
     address: 0x9e3ce1e3803b3a28
 
-  - name: "Cold Water Inlet Temperature"
+  - name: Cold Water Inlet Temperature
     platform: dallas
     address: 0x023c490457f76428
 
-  - name: "Hot Water Flow Temperature"
+  - name: Hot Water Flow Temperature
     platform: dallas
     address: 0xeb000f9843140528
 
-  - name: "Central Heating Flow Temperature"
+  - name: Central Heating Flow Temperature
     platform: dallas
     address: 0x4b00ff9843122b28
 
-  - name: "Central Heating Return Temperature"
+  - name: Central Heating Return Temperature
     platform: dallas
     address: 0xfa00239843066d28

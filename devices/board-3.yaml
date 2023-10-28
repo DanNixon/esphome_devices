@@ -8,5 +8,5 @@ esp32:
     type: arduino
 
 packages:
-  base: !include ../common/base.yaml
-  ethernet: !include ../common/ethernet_ttgo_tinternet_poe.yaml
+  base: !include ../esphome_common/base.yaml
+  ethernet: !include ../esphome_common/ethernet_ttgo_tinternet_poe.yaml

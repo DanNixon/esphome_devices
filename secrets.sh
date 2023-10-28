@@ -6,7 +6,7 @@ usage() {
 
 here="$(readlink -f "$0")"
 here="$(dirname "$here")"
-secrets_file="$here/common/secrets.yaml"
+secrets_file="$here/esphome_common/secrets.yaml"
 
 device_file="$(basename "$2")"
 device="${device_file%.*}"

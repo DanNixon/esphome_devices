@@ -1,0 +1,7 @@
+[formatter.nix]
+command = "alejandra"
+includes = [ "*.nix" ]
+
+[formatter.shell]
+command = "shellcheck"
+includes = [ "*.sh" ]

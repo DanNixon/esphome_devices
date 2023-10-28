@@ -16,6 +16,11 @@
         devShell = pkgs.mkShell {
           packages = with pkgs; [
             esphome
+
+            # Code formatting tools
+            alejandra
+            shellcheck
+            treefmt
           ];
         };
       }

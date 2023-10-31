@@ -27,17 +27,17 @@ jobs:
     strategy:
       matrix:
         device:
-          - board-2.yaml
-          - board-3.yaml
-          - board-4.yaml
+          - board-2/board-2.yaml
+          - board-3/board-3.yaml
+          - board-4/board-4.yaml
           - boiler/boiler.yaml
-          - guest-bedroom.yaml
-          - kitchen.yaml
-          - landing.yaml
-          - living-room.yaml
-          - main-bedroom.yaml
-          - office.yaml
-          - utility-room.yaml
+          - guest-bedroom/guest-bedroom.yaml
+          - kitchen/kitchen.yaml
+          - landing/landing.yaml
+          - living-room/living-room.yaml
+          - main-bedroom/main-bedroom.yaml
+          - office/office.yaml
+          - utility-room/utility-room.yaml
 
     steps:
       - uses: actions/checkout@v4

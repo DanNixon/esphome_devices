@@ -6,8 +6,8 @@ esp8266:
   board: d1_mini
 
 packages:
-  base: !include ../esphome_common/base.yaml
-  wifi: !include ../esphome_common/wifi.yaml
+  base: !include ../../esphome_common/base.yaml
+  wifi: !include ../../esphome_common/wifi.yaml
 
 i2c:
 

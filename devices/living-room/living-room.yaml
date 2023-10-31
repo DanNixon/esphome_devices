@@ -1,32 +1,32 @@
 ---
 esphome:
-  name: guest-bedroom
+  name: living-room
 
 esp8266:
   board: d1_mini
 
 packages:
-  base: !include ../esphome_common/base.yaml
-  wifi: !include ../esphome_common/wifi.yaml
+  base: !include ../../esphome_common/base.yaml
+  wifi: !include ../../esphome_common/wifi.yaml
 
 i2c:
 
 binary_sensor:
   - platform: gpio
     pin: D0
-    name: Guest Bedroom Motion
+    name: Living Room Motion
     device_class: motion
     filters:
       - delayed_off: 15s
 
 sensor:
   - platform: wifi_signal
-    name: Guest Bedroom WiFi Signal Strength
+    name: Living Room WiFi Signal Strength
     update_interval: 60s
 
   - platform: adc
     pin: A0
-    name: Guest Bedroom Ambient Brightness
+    name: Living Room Ambient Brightness
     device_class: illuminance
     unit_of_measurement: "%"
     update_interval: 1s
@@ -37,18 +37,18 @@ sensor:
 
   - platform: aht10
     temperature:
-      name: Guest Bedroom Temperature
+      name: Living Room Temperature
       id: temperature
       accuracy_decimals: 1
       filters:
         - offset: -4.0
     humidity:
-      name: Guest Bedroom Humidity
+      name: Living Room Humidity
       id: relative_humidity
       accuracy_decimals: 1
     update_interval: 60s
 
   - platform: absolute_humidity
-    name: Guest Bedroom Absolute Humidity
+    name: Living Room Absolute Humidity
     temperature: temperature
     humidity: relative_humidity

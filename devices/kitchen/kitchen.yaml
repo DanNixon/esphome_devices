@@ -1,32 +1,32 @@
 ---
 esphome:
-  name: office
+  name: kitchen
 
 esp8266:
   board: d1_mini
 
 packages:
-  base: !include ../esphome_common/base.yaml
-  wifi: !include ../esphome_common/wifi.yaml
+  base: !include ../../esphome_common/base.yaml
+  wifi: !include ../../esphome_common/wifi.yaml
 
 i2c:
 
 binary_sensor:
   - platform: gpio
     pin: D0
-    name: Office Motion
+    name: Kitchen Motion
     device_class: motion
     filters:
       - delayed_off: 15s
 
 sensor:
   - platform: wifi_signal
-    name: Office WiFi Signal Strength
+    name: Kitchen WiFi Signal Strength
     update_interval: 60s
 
   - platform: adc
     pin: A0
-    name: Office Ambient Brightness
+    name: Kitchen Ambient Brightness
     device_class: illuminance
     unit_of_measurement: "%"
     update_interval: 1s
@@ -37,18 +37,18 @@ sensor:
 
   - platform: aht10
     temperature:
-      name: Office Temperature
+      name: Kitchen Temperature
       id: temperature
       accuracy_decimals: 1
       filters:
         - offset: -4.0
     humidity:
-      name: Office Humidity
+      name: Kitchen Humidity
       id: relative_humidity
       accuracy_decimals: 1
     update_interval: 60s
 
   - platform: absolute_humidity
-    name: Office Absolute Humidity
+    name: Kitchen Absolute Humidity
     temperature: temperature
     humidity: relative_humidity

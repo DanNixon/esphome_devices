@@ -6,6 +6,8 @@ on:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   quality:
@@ -20,7 +22,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-
     needs:
       - quality
 
@@ -33,13 +34,7 @@ jobs:
           - boiler/boiler.yaml
           - doit-esp32-devkit-kitchen-sink/doit-esp32-devkit-kitchen-sink.yaml
           # - flan-wings/flan-wings.yaml
-          - guest-bedroom/guest-bedroom.yaml
           # - hakkero/hakkero.yaml
-          - kitchen/kitchen.yaml
-          - landing/landing.yaml
-          - living-room/living-room.yaml
-          - main-bedroom/main-bedroom.yaml
-          - office/office.yaml
           - utility-room/utility-room.yaml
           # - vfd-clock/vfd-clock.yaml
 

@@ -35,3 +35,12 @@ fp-info-cache
 \#auto_saved_files\#
 
 gerbers
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

@@ -9,8 +9,6 @@ packages:
   base: !include ../../esphome_common/base.yaml
   wifi: !include ../../esphome_common/wifi.yaml
 
-i2c:
-
 binary_sensor:
   - platform: gpio
     pin:
@@ -70,21 +68,3 @@ sensor:
     filters:
       - multiply: 100
       - delta: 2%
-
-  - platform: aht10
-    temperature:
-      name: Utility Room Temperature
-      id: temperature
-      accuracy_decimals: 1
-      filters:
-        - offset: -4.0
-    humidity:
-      name: Utility Room Humidity
-      id: relative_humidity
-      accuracy_decimals: 1
-    update_interval: 60s
-
-  - platform: absolute_humidity
-    name: Utility Room Absolute Humidity
-    temperature: temperature
-    humidity: relative_humidity

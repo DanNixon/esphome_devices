@@ -15,12 +15,12 @@ if [ -z "$device" ]; then
   exit 1
 fi
 
-pass_entry="home/esphome_secrets/$device"
+pass_entry="home/esphome_secrets/${device}.yaml"
 
 print_details() {
-  echo "Secrets file         : $secrets_file"
-  echo "Device               : $device"
-  echo "Password Store entry : $pass_entry"
+  echo "Secrets file : $secrets_file"
+  echo "Device       : $device"
+  echo "Koishi entry : $pass_entry"
 }
 
 generate_empty_secrets() {
@@ -39,7 +39,7 @@ case "$1" in
     ;;
   "load")
     print_details
-    pass "$pass_entry" > "$secrets_file"
+    koishi get "$pass_entry" > "$secrets_file"
     ;;
   "dummy")
     print_details

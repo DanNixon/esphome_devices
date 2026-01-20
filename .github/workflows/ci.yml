@@ -15,16 +15,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31
-      - uses: cachix/cachix-action@v16
-        with:
-          name: devenv
-      - name: Install devenv.sh
-        run: nix profile install nixpkgs#devenv
+      - uses: DeterminateSystems/nix-installer-action@v21
 
       - name: Formatting and Linting
-        shell: devenv shell bash -- -e {0}
-        run: treefmt --verbose --fail-on-change
+        run: nix develop --command treefmt --verbose --fail-on-change
 
   build:
     runs-on: ubuntu-latest
@@ -46,15 +40,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31
-      - uses: cachix/cachix-action@v16
-        with:
-          name: devenv
-      - name: Install devenv.sh
-        run: nix profile install nixpkgs#devenv
+      - uses: DeterminateSystems/nix-installer-action@v21
 
       - name: Build
-        shell: devenv shell bash -- -e {0}
         run: |
           ./secrets.sh dummy devices/${{ matrix.device }}
-          esphome compile devices/${{ matrix.device }}
+          nix develop --command esphome compile devices/${{ matrix.device }}
